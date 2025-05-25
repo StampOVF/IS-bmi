@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องคำนวณ BMI</title>
+  <style>
+    body {
+      font-family: "Prompt", sans-serif;
+      background-color: #93badd;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    .container {
+      background-color: rgb(255, 255, 255);
+      max-width: 800px;
+      margin: auto;
+      padding: 100px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #009acd;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>เครื่องคำนวณ BMI</h1>
+    <p>กรอกข้อมูลของคุณ:</p>
+    <input type="number" id="weight" placeholder="น้ำหนัก (กิโลกรัม)">
+    <br>
+    <input type="number" id="height" placeholder="ส่วนสูง (เซนติเมตร)">
+    <br>
+    <button onclick="calculateBMI()">คำนวณ</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const height = parseFloat(document.getElementById("height").value) / 100; // แปลงเป็นเมตร
+      const resultEl = document.getElementById("result");
+
+      if (!weight || !height || weight <= 0 || height <= 0) {
+        resultEl.innerHTML = "กรุณากรอกน้ำหนักและส่วนสูงให้ถูกต้อง";
+        return;
+      }
+
+      const bmi = weight / (height * height);
+      let category = "";
+
+      if (bmi < 18.5) category = "น้ำหนักน้อย";
+      else if (bmi < 24.9) category = "ปกติ";
+      else if (bmi < 29.9) category = "น้ำหนักเกิน";
+      else category = "อ้วน";
+
+      resultEl.innerHTML = `BMI ของคุณคือ <strong>${bmi.toFixed(2)}</strong><br>อยู่ในเกณฑ์: <strong>${category}</strong>`;
+    }
+  </script>
+
+</body>
+</html>
